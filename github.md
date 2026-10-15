@@ -5,7 +5,7 @@ Repository: `https://github.com/elitedevemon/swapnomart.git`
 ## বর্তমান অবস্থা
 
 - Local project-এ Git initialized; branch `main` এবং এই repository-র `origin` remote সেট করা হয়েছে।
-- Source files-এর local commit প্রস্তুত করা হচ্ছে/হয়েছে; **local commit মানে GitHub-এ upload নয়**। Remote upload status-এর জন্য `working-flow.md`-এর WF-0019 final entry দেখুন।
+- Source files-এর initial local commit তৈরি হয়েছে। **GitHub-এ কোনো file upload হয়নি**: non-interactive push dry-run authentication না থাকায় ব্যর্থ হয়েছে। নিজের কম্পিউটারে authenticate করে push করতে হবে।
 - যাচাইয়ের সময় GitHub API repository-টিকে **Public** দেখিয়েছে। Private রাখতে চাইলে upload করার আগে নিচের visibility step করুন।
 - এখানে সরাসরি GitHub connector সমর্থিত নয়। URL দিলেই account write permission পাওয়া যায় না। Password/access token chat-এ পাঠাবেন না।
 
