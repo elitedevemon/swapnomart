@@ -1,0 +1,11 @@
+<?php
+if($action==='errors-report'){
+ rate_limit('browser-errors',60);$kind=in_array($input['kind']??'',['javascript','promise','asset','request','validation','action'],true)?$input['kind']:'javascript';$message=trim((string)($input['message']??''));if(!$message)reply(['error'=>'An error summary is required.'],422);$ctx=['source'=>'browser','severity'=>$kind==='validation'?'warning':'error','action'=>substr((string)($input['action']??$kind),0,80),'route'=>substr((string)($input['route']??'/'),0,500),'type'=>$kind,'status'=>(int)($input['status']??0)];foreach(['file','line','stack','fields']as $k)if(isset($input[$k])&&(is_scalar($input[$k])||$k==='fields'&&is_array($input[$k])))$ctx[$k]=$input[$k];$id=record_error($message,$ctx);reply(['ok'=>(bool)$id,'error_id'=>$id]);
+}
+if(in_array($action,['errors-list','errors-detail','errors-clear'],true)){
+ require_user(true);
+ if($action==='errors-clear'){if(($input['confirm']??'')!=='CLEAR')throw new RuntimeException('Confirm CLEAR to empty the error log.');error_journal_clear();audit('error-log-cleared');reply(['ok'=>true]);}
+ $rows=array_reverse(error_journal_read());
+ if($action==='errors-detail'){$id=$_GET['id']??'';foreach($rows as $r)if(hash_equals($r['id'],$id))reply(['error_record'=>$r]);reply(['error'=>'This entry was cleared or is no longer retained.'],404);}
+ $total=count($rows);$critical=count(array_filter($rows,fn($r)=>$r['severity']==='critical'));$warnings=count(array_filter($rows,fn($r)=>$r['severity']==='warning'));$search=mb_strtolower(mb_substr($_GET['q']??'',0,150));$severity=$_GET['severity']??'';$source=$_GET['source']??'';$rows=array_values(array_filter($rows,fn($r)=>(!$severity||$r['severity']===$severity)&&(!$source||$r['source']===$source)&&(!$search||str_contains(mb_strtolower($r['message'].' '.$r['action'].' '.$r['id']),$search))));$filtered=count($rows);$page=max(1,(int)($_GET['page']??1));$pages=max(1,(int)ceil($filtered/25));$page=min($page,$pages);reply(['entries'=>array_slice($rows,($page-1)*25,25),'total'=>$total,'filtered'=>$filtered,'critical'=>$critical,'warnings'=>$warnings,'page'=>$page,'pages'=>$pages,'storage_writable'=>is_writable(dirname(error_journal_path())),'retention'=>'Bounded 5 MB journal; oldest entries rotate when full.']);
+}

@@ -1,0 +1,11 @@
+{
+  "name": "lifestyle-storefront",
+  "private": true,
+  "version": "3.1.0",
+  "scripts": {
+    "css": "tailwindcss -i resources/tailwind.css -o public/assets/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.19"
+  }
+}

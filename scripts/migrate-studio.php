@@ -1,0 +1,15 @@
+<?php
+if(PHP_SAPI!=='cli'){http_response_code(404);exit;}
+
+require dirname(__DIR__).'/app/bootstrap.php';
+$db->exec("CREATE TABLE IF NOT EXISTS hero_slides (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,title_en VARCHAR(180) NOT NULL,title_bn VARCHAR(240) NOT NULL,eyebrow_en VARCHAR(180) NOT NULL,eyebrow_bn VARCHAR(240) NOT NULL,description_en TEXT NOT NULL,description_bn TEXT NOT NULL,button_en VARCHAR(100) NOT NULL,button_bn VARCHAR(160) NOT NULL,button_url VARCHAR(500) NOT NULL,image VARCHAR(500) NOT NULL,mobile_image VARCHAR(500) NOT NULL DEFAULT '',position INT NOT NULL DEFAULT 0,active TINYINT NOT NULL DEFAULT 1) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS realtime_events(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,type VARCHAR(40) NOT NULL,audience VARCHAR(20) NOT NULL,user_id BIGINT UNSIGNED NULL,payload JSON NOT NULL,created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,INDEX idx_events_scope(audience,user_id,id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS notification_reads(user_id BIGINT UNSIGNED PRIMARY KEY,last_read BIGINT UNSIGNED NOT NULL DEFAULT 0) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+if(!query("SHOW COLUMNS FROM products LIKE 'gallery'")->fetch())$db->exec('ALTER TABLE products ADD COLUMN gallery JSON NULL');
+if(!query('SELECT COUNT(*) FROM hero_slides')->fetchColumn()&&!setting('studio_installed')){
+ $slides=[['A little closer to your roots.','নিজের শিকড়ের আরও কাছে।','THE EVERYDAY HERITAGE COLLECTION','প্রতিদিনের ঐতিহ্য কালেকশন','Familiar threads. Fresh beginnings. Thoughtful pieces for the way you live, every day.','চেনা বুননে নতুন শুরু। আপনার প্রতিদিনের জন্য যত্নে বাছাই করা পণ্য।','Discover the collection','কালেকশন দেখুন','/#shop','/assets/hero.jpg',1],['There’s no place like your home.','আপনার ঘরের মতো আপন কিছু নেই।','THE SLOW LIVING EDIT','স্বস্তির জীবনযাপনের গল্প','The softest cotton. The warmest corners. Little details that make a house feel like you.','কোমল সুতি আর উষ্ণ আপন কোণ। ছোট ছোট ছোঁয়ায় ঘর হয়ে উঠুক আপনার মতো।','Make yourself at home','ঘর সাজান নিজের মতো','/#shop?cat=Home%20%26%20Living','/assets/home-editorial.jpg',2],['Tradition, with a little new.','ঐতিহ্যে একটু নতুনের ছোঁয়া।','THE CONSIDERED WARDROBE','যত্নে সাজানো পোশাক','Familiar silhouettes. A fresh point of view. Meet the pieces you will reach for, again and again.','চেনা পোশাকে নতুন ভাবনা। দেখা হোক বারবার পরতে ভালো লাগা প্রিয় পোশাকের সাথে।','Explore for him','পুরুষের কালেকশন','/#shop?cat=Men','/assets/category-men.jpg',3]];
+ foreach($slides as $s)query('INSERT INTO hero_slides(title_en,title_bn,eyebrow_en,eyebrow_bn,description_en,description_bn,button_en,button_bn,button_url,image,position) VALUES(?,?,?,?,?,?,?,?,?,?,?)',$s);
+ foreach(['saree-1','panjabi-1'] as $n)query('UPDATE products SET gallery=? WHERE image=?',[json_encode(['/assets/'.$n.'.jpg','/assets/'.$n.'-detail.jpg','/assets/'.$n.'-back.jpg']),'/assets/'.$n.'.jpg']);
+ set_setting('studio_installed','1');set_setting('site_revision','1');
+}
+echo "Website Studio migration complete.\n";

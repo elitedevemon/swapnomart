@@ -1,0 +1,21 @@
+# Root-document-root deployment (Laragon Apache / cPanel public_html).
+# Prefer pointing the virtual host directly to public/ where possible.
+Options -Indexes -MultiViews
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+# Permit only the standard certificate challenge location among dot directories.
+RewriteRule ^\.well-known/acme-challenge/[A-Za-z0-9_-]+$ - [END]
+RewriteRule (^|/)\. - [F,END]
+RewriteRule ^(?:app|database|storage|scripts|docs|tests|resources)(?:/|$) - [F,END,NC]
+RewriteRule ^(?:working-flow\.md|README\.md|package(?:-lock)?\.json|tailwind\.config\.js|Dockerfile|compose\.ya?ml)$ - [F,END,NC]
+RewriteRule ^(?:public/)?assets/.*\.(?:php[0-9]*|phtml|phar|cgi|pl|py|sh|sql|log|ini|env|bak|zip)(?:/|$) - [F,END,NC]
+RewriteRule ^(?:public/)?assets/(.+\.(?:css|js|woff2?|ttf|otf|png|jpe?g|webp|gif|svg|ico))$ public/assets/$1 [END,NC]
+RewriteRule ^(?:public/)?assets(?:/|$) - [R=404,END]
+RewriteRule ^(?:public/)?sw\.js$ public/sw.js [END]
+RewriteRule ^(?:public/)?api(?:\.php)?$ public/api.php [END,QSA]
+RewriteRule ^(?:public/)?install\.php$ public/install.php [END,QSA]
+RewriteRule ^ public/index.php [END,QSA]
+<IfModule mod_headers.c>
+ Header always set X-Content-Type-Options "nosniff"
+ Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

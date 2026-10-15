@@ -1,0 +1,27 @@
+.env
+node_modules/
+.cache/
+storage/*
+!storage/.gitkeep
+public/assets/uploads/*
+!public/assets/uploads/.gitkeep
+backups/
+*.log
+*.zip
+!storage/.htaccess
+!public/assets/uploads/.htaccess
+
+# Private owner-supplied Pusher configuration
+app/pusher-defaults.php
+
+# Private one-time installer state; preserve on the installed host, never publish.
+app/.installation-state*
+app/.setup-*
+
+# Ignore real environment variants; retain only the distributable templates.
+.env.*
+!.env.example
+!.env.production.example
+.npm/
+.DS_Store
+Thumbs.db

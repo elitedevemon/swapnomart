@@ -1,0 +1,18 @@
+Options -Indexes -MultiViews
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteRule ^\.well-known/acme-challenge/[A-Za-z0-9_-]+$ - [END]
+RewriteRule (^|/)\. - [F,END]
+RewriteRule ^(?:app|database|storage|scripts|docs|tests|resources)(?:/|$) - [F,END,NC]
+RewriteRule ^(?:working-flow\.md|README\.md|package(?:-lock)?\.json|tailwind\.config\.js)$ - [F,END,NC]
+RewriteRule ^assets/.*\.(?:php[0-9]*|phtml|phar|cgi|pl|py|sh|sql|log|ini|env|bak|zip)(?:/|$) - [F,END,NC]
+RewriteRule ^assets/(.+\.(?:css|js|woff2?|ttf|otf|png|jpe?g|webp|gif|svg|ico))$ - [END,NC]
+RewriteRule ^assets(?:/|$) - [R=404,END]
+RewriteRule ^api(?:\.php)?$ api.php [END,QSA]
+RewriteRule ^install\.php$ install.php [END,QSA]
+RewriteRule ^(?:index\.php|sw\.js)$ - [END]
+RewriteRule ^ index.php [END,QSA]
+<IfModule mod_headers.c>
+ Header always set X-Content-Type-Options "nosniff"
+ Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

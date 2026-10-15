@@ -1,0 +1,1 @@
+module.exports={content:['./public/**/*.php','./public/assets/*.js'],theme:{extend:{colors:{forest:'#344c3c',cream:'#f6f3ed'},fontFamily:{sans:['DM Sans','sans-serif'],serif:['Playfair Display','serif']}}},plugins:[]};
