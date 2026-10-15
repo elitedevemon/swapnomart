@@ -4,10 +4,13 @@ Repository: `https://github.com/elitedevemon/swapnomart.git`
 
 ## বর্তমান অবস্থা
 
-- Local project-এ Git initialized; branch `main` এবং এই repository-র `origin` remote সেট করা হয়েছে।
-- Source files-এর initial local commit তৈরি হয়েছে। **GitHub-এ কোনো file upload হয়নি**: non-interactive push dry-run authentication না থাকায় ব্যর্থ হয়েছে। নিজের কম্পিউটারে authenticate করে push করতে হবে।
-- যাচাইয়ের সময় GitHub API repository-টিকে **Public** দেখিয়েছে। Private রাখতে চাইলে upload করার আগে নিচের visibility step করুন।
-- এখানে সরাসরি GitHub connector সমর্থিত নয়। URL দিলেই account write permission পাওয়া যায় না। Password/access token chat-এ পাঠাবেন না।
+- Project-এর Git branch `main`; `origin` এই repository-তে সেট করা।
+- User GitHub-এর official device authorization সম্পন্ন করেছেন; `elitedevemon` account-এর repository write permission যাচাই হয়েছে। প্রথম session-এর authentication blocker আর প্রযোজ্য নয়।
+- Source upload/verification-এর সর্বশেষ ফল `working-flow.md`-এর **WF-0020** entry-তে আছে।
+- যাচাইয়ের সময় repository **Public** ছিল; visibility পরিবর্তন করা হয়নি।
+- Authorization-এর temporary credentials project-এর বাইরে রাখা হয়েছে; upload শেষে local auth files সরানো হবে। Password/token source-এ বা chat-এ চাওয়া হয়নি। Future push-এর জন্য নতুন authentication লাগতে পারে।
+
+নিচের instructions নিজের কম্পিউটার থেকে পরবর্তী updates/clone ব্যবহারের জন্যও প্রযোজ্য।
 
 ## ১. দরকার হলে repository Private করুন
 
