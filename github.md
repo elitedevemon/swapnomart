@@ -6,9 +6,10 @@ Repository: `https://github.com/elitedevemon/swapnomart.git`
 
 - Project-এর Git branch `main`; `origin` এই repository-তে সেট করা।
 - User GitHub-এর official device authorization সম্পন্ন করেছেন; `elitedevemon` account-এর repository write permission যাচাই হয়েছে। প্রথম session-এর authentication blocker আর প্রযোজ্য নয়।
-- Source upload/verification-এর সর্বশেষ ফল `working-flow.md`-এর **WF-0020** entry-তে আছে।
+- **Source GitHub-এর `main` branch-এ upload হয়েছে।** ১৫১টি remote source file local snapshot-এর সঙ্গে মিলিয়ে যাচাই করা হয়েছে; sensitive files অনুপস্থিত। বিস্তারিত `working-flow.md`-এর **WF-0020** entry-তে।
 - যাচাইয়ের সময় repository **Public** ছিল; visibility পরিবর্তন করা হয়নি।
-- Authorization-এর temporary credentials project-এর বাইরে রাখা হয়েছে; upload শেষে local auth files সরানো হবে। Password/token source-এ বা chat-এ চাওয়া হয়নি। Future push-এর জন্য নতুন authentication লাগতে পারে।
+- Temporary authentication files এবং অস্থায়ী GitHub CLI মুছে দেওয়া হয়েছে। Password/token source-এ বা chat-এ চাওয়া হয়নি। Final audit push-এর credential কেবল short-lived process memory-তে ছিল; future push-এর জন্য নতুন authentication লাগতে পারে।
+- Local credential deletion মানে GitHub account-এর OAuth-app grant revoke নয়। দরকার হলে GitHub → Settings → Applications → Authorized OAuth Apps থেকে GitHub CLI access নিজে revoke করতে পারেন।
 
 নিচের instructions নিজের কম্পিউটার থেকে পরবর্তী updates/clone ব্যবহারের জন্যও প্রযোজ্য।
 
