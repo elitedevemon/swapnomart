@@ -1,12 +1,14 @@
 # GitHub connection — swapnomart
 
+> **Public test-key exception:** মালিকের অনুরোধে `app/.setup-key.php`-তে এখন একটি fixed public TEST key রাখা হয়েছে। শুধু controlled testing-এর জন্য। Fresh production-এর আগে file tracking সরিয়ে test file বাদ দিয়ে server-local private key তৈরি করুন। [নির্দেশনা ও ঝুঁকি](docs/PUBLIC-TEST-KEY.md)। নিচের auto-generated-key নির্দেশনা private/fresh production workflow-এর জন্য।
+
 Repository: `https://github.com/elitedevemon/swapnomart.git`
 
 ## বর্তমান অবস্থা
 
 - Project-এর Git branch `main`; `origin` এই repository-তে সেট করা।
 - User GitHub-এর official device authorization সম্পন্ন করেছেন; `elitedevemon` account-এর repository write permission যাচাই হয়েছে। প্রথম session-এর authentication blocker আর প্রযোজ্য নয়।
-- **Source GitHub-এর `main` branch-এ upload হয়েছে।** ১৫১টি remote source file local snapshot-এর সঙ্গে মিলিয়ে যাচাই করা হয়েছে; sensitive files অনুপস্থিত। বিস্তারিত `working-flow.md`-এর **WF-0020** entry-তে।
+- **Source GitHub-এর `main` branch-এ upload হয়েছে।** প্রথম upload-এ ১৫১টি source file যাচাই করা হয়েছিল। Owner-requested public test-key exception পরে যোগ হয়েছে; private production credentials এখনো excluded। বিস্তারিত `working-flow.md`-এর **WF-0020** entry-তে।
 - যাচাইয়ের সময় repository **Public** ছিল; visibility পরিবর্তন করা হয়নি।
 - Temporary authentication files এবং অস্থায়ী GitHub CLI মুছে দেওয়া হয়েছে। Password/token source-এ বা chat-এ চাওয়া হয়নি। Final audit push-এর credential কেবল short-lived process memory-তে ছিল; future push-এর জন্য নতুন authentication লাগতে পারে।
 - Local credential deletion মানে GitHub account-এর OAuth-app grant revoke নয়। দরকার হলে GitHub → Settings → Applications → Authorized OAuth Apps থেকে GitHub CLI access নিজে revoke করতে পারেন।
@@ -78,7 +80,7 @@ git status --short
 
 প্রথম command-এ sensitive filenames দেখানো মানে ignore rules কাজ করছে। `.gitignore` আগে থেকেই tracked file সরায় না। Existing history-তে real secret থাকলে শুধু file delete করলেই নিরাপদ হবে না—secret rotate এবং history review দরকার। এই project-এর প্রথম local candidate review-এ known private Pusher secret ও common credential patterns পাওয়া যায়নি; এটি exhaustive security audit নয়।
 
-**GitHub copy-তে যা থাকবে না:** real `.env`/environment variants, private Pusher defaults, installation key/state, private storage এবং runtime uploaded files। নতুন clone-এ নিজের configuration/provider credentials আলাদাভাবে দিতে হবে। Installed shop-এর database/uploads/private keys Git backup-এর বিকল্প হিসেবে বাদ দেওয়া যাবে না—সেগুলোর আলাদা private backup রাখুন।
+**GitHub copy-তে যা থাকবে না:** real `.env`/environment variants, private Pusher defaults, private installation state/runtime data, private storage এবং runtime uploaded files। নতুন clone-এ নিজের configuration/provider credentials আলাদাভাবে দিতে হবে। Installed shop-এর database/uploads/private keys Git backup-এর বিকল্প হিসেবে বাদ দেওয়া যাবে না—সেগুলোর আলাদা private backup রাখুন।
 
 ## ৬. দরকার হলে local commit করুন, তারপর push
 

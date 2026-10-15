@@ -1,5 +1,7 @@
 # Local installation — Laragon 6
 
+> **Public test-key exception:** মালিকের অনুরোধে `app/.setup-key.php`-তে এখন একটি fixed public TEST key রাখা হয়েছে। শুধু controlled testing-এর জন্য। Fresh production-এর আগে file tracking সরিয়ে test file বাদ দিয়ে server-local private key তৈরি করুন। [নির্দেশনা ও ঝুঁকি](docs/PUBLIC-TEST-KEY.md)। নিচের auto-generated-key নির্দেশনা private/fresh production workflow-এর জন্য।
+
 এই guide অনুসরণ করে Windows-এর **Laragon 6**-এ project install ও test করুন। Hosting-এ নেওয়ার নির্দেশনা: [cpanel.md](cpanel.md)।
 
 > **সবচেয়ে জরুরি:** নতুন web installation-এর আগে `.env` তৈরি, SQL import বা `scripts/install.php` চালাবেন না। Web installer এগুলো নিজে সামলাবে। তবে খালি database ও database user আগে তৈরি করতে হবে। Existing store-এর ওপর installer চালাবেন না।

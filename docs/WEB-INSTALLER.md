@@ -1,5 +1,7 @@
 # One-time web installation · Laragon 6 → cPanel
 
+> **Public test-key exception:** মালিকের অনুরোধে `app/.setup-key.php`-তে এখন একটি fixed public TEST key রাখা হয়েছে। শুধু controlled testing-এর জন্য। Fresh production-এর আগে file tracking সরিয়ে test file বাদ দিয়ে server-local private key তৈরি করুন। [নির্দেশনা ও ঝুঁকি](PUBLIC-TEST-KEY.md)। নিচের auto-generated-key নির্দেশনা private/fresh production workflow-এর জন্য।
+
 **WF-0017 · 15 October 2026**
 
 ## নতুন project-এর সহজ setup
@@ -58,7 +60,7 @@ Browser-এ `http://localhost:8081` খুলুন; একই port-এ দ্�
 
 **একই installed shop move করলে:** DB export/import, uploads/private storage, installation marker ও config একসঙ্গে স্থানান্তর করুন। Hosting DB credentials/domain/HTTPS/private paths update করুন; installer পুনরায় চালাবেন না।
 
-**Demo পরীক্ষা শেষে নতুন clean production চাইলে:** untouched **uninstalled source copy** + আলাদা empty production DB ব্যবহার করুন। Demo installation-এর marker delete করে live store reset করার চেষ্টা নয়। Original downloadable source-এ কোনো runtime install marker/setup key/real `.env` নেই।
+**Demo পরীক্ষা শেষে নতুন clean production চাইলে:** untouched **uninstalled source copy** + আলাদা empty production DB ব্যবহার করুন। Demo installation-এর marker delete করে live store reset করার চেষ্টা নয়। Original source-এ runtime install marker/private credentials/real `.env` নেই; owner-requested public TEST key এখন আলাদা exception।
 
 CLI alternative (`scripts/install.php`) আগের মতো আছে। Web setup ও CLI setup একই fresh copy-তে একসঙ্গে ব্যবহার করবেন না।
 

@@ -1,5 +1,7 @@
 # Lifestyle Store
 
+> **Public test-key exception:** মালিকের অনুরোধে `app/.setup-key.php`-তে এখন একটি fixed public TEST key রাখা হয়েছে। শুধু controlled testing-এর জন্য। Fresh production-এর আগে file tracking সরিয়ে test file বাদ দিয়ে server-local private key তৈরি করুন। [নির্দেশনা ও ঝুঁকি](docs/PUBLIC-TEST-KEY.md)। নিচের auto-generated-key নির্দেশনা private/fresh production workflow-এর জন্য।
+
 Bilingual Bangladesh storefront with the existing cream/forest design, graphical admin, Website Studio, shopping showcases, Delivery Hub and three-day product returns.
 
 **Start here: [বাংলা Laragon → cPanel guide](docs/START-HERE-BN.md).**

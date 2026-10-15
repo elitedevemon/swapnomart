@@ -1,5 +1,7 @@
 # cPanel installation — ধাপে ধাপে
 
+> **Public test-key exception:** মালিকের অনুরোধে `app/.setup-key.php`-তে এখন একটি fixed public TEST key রাখা হয়েছে। শুধু controlled testing-এর জন্য। Fresh production-এর আগে file tracking সরিয়ে test file বাদ দিয়ে server-local private key তৈরি করুন। [নির্দেশনা ও ঝুঁকি](docs/PUBLIC-TEST-KEY.md)। নিচের auto-generated-key নির্দেশনা private/fresh production workflow-এর জন্য।
+
 প্রথমে local testing করতে চাইলে [local.md](local.md) অনুসরণ করুন। এই guide-এ **fresh production installation** এবং **আগে install করা shop স্থানান্তর** আলাদাভাবে দেওয়া আছে।
 
 > নতুন web installation-এ আগে `.env` বানাবেন না, SQL import বা CLI installer চালাবেন না। Installer connection/admin/shop setup করবে। কিন্তু cPanel-এ empty database/user আগে তৈরি করতে হবে। Existing shop move/update করতে installer ব্যবহার করবেন না।
